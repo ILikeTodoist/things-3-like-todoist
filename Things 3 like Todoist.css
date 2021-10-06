@@ -1,0 +1,80 @@
+#projects_list .td_color {
+  display: none;
+}
+
+#projects_list .text {
+  padding-left: 12px !important;
+}
+
+.task_list_item {
+  border: none !important;
+}
+
+.view_header__content {
+  border-bottom: none !important;
+  margin-bottom: 42px !important;
+}
+
+.task_checkbox__circle {
+  border-radius: 6px !important;
+}
+
+.sidebar_expansion_panel:nth-child(2) .expansion_panel__header {
+  position: absolute;
+  right: 0px;
+  background-color: transparent !important;
+}
+
+.sidebar_expansion_panel:nth-child(2) .expansion_panel__header .expansion_panel__toggle {
+  display: none;
+}
+
+
+.sidebar_expansion_panel:nth-child(2) .expansion_panel__header .expansion_panel__actions button {
+  margin-top: 145px;
+  width: auto;
+  right: 15px;
+  padding: 8px;
+  position: absolute;
+}
+
+.view_header__content .view_header__actions,
+.task_actions,
+.arrow,
+.sidebar_expansion_panel .expansion_panel__header,
+.collapser,
+.section_head__title small {
+  opacity: 0;
+  transition-duration: .2s;
+}
+
+.view_header__content:hover .view_header__actions,
+.task_actions:hover,
+.arrow:hover,
+.sidebar_expansion_panel .expansion_panel__header:hover,
+.collapser:hover,
+.section_head__title:hover small {
+  opacity: 1 !important;
+}
+
+
+#projects_archived_holder {
+  opacity: 0;
+}
+
+#projects_archived_holder:hover {
+  opacity: 1;
+}
+
+#top_filters li:nth-child(2) {
+  margin-top: 12px;
+}
+
+#projects_list li:nth-child(1) {
+  margin-top: -10px;
+}
+
+#projects_list li:nth-child(2) {
+  margin-bottom: 30px;
+}
+
