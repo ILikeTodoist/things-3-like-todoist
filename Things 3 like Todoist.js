@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Things 3 like Todoist
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.1
 // @description  Things 3 like Todoist JavaScript code.
 // @author       None of your business
 // @match        https://todoist.com/app/*
@@ -218,6 +218,7 @@
         const sideMenuItems = [...Array.from(areas), ...Array.from(filters)]
         sideMenuItems.forEach(item => {
             const text = item.querySelector(".name") || item.querySelector(".item_content")
+            if (!text) return;
 
             text.style.fontSize = "17px"
             text.style.fontWeight = "600"
