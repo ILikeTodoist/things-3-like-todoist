@@ -61,6 +61,7 @@ h1 {
     overflow: visible !important;
 }
 
+
 #left_menu {
     background-color: #1F1F1F !important;
 }
@@ -68,6 +69,18 @@ h1 {
 #content, .view_header, .task_list_item__body, .task_list_item__actions, .section_head__title, .section_head__actions, .section_head_menu, header, .upcoming_view__calendar__wrapper {
     background: none !important;
     background-color: #282828 !important;
+}
+
+.task_list_item .task_list_item__body {
+    transition-duration: .2s;
+}
+
+.task_list_item[aria-selected="true"] .task_list_item__body {
+  background-color: rgba(82, 151, 255, .2) !important;
+}
+
+.section_head__title .simple_content {
+    color: #75acff;
 }
 
 #projects_archived_holder {
