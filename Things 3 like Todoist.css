@@ -1,41 +1,41 @@
 #projects_list .td_color {
-  display: none;
+    display: none;
 }
 
 #projects_list .text {
-  padding-left: 12px !important;
+    padding-left: 12px !important;
 }
 
 .task_list_item {
-  border: none !important;
+    border: none !important;
 }
 
 .view_header__content {
-  border-bottom: none !important;
-  margin-bottom: 42px !important;
+    border-bottom: none !important;
+    margin-bottom: 42px !important;
 }
 
 .task_checkbox__circle {
-  border-radius: 6px !important;
+    border-radius: 6px !important;
 }
 
 .sidebar_expansion_panel:nth-child(2) .expansion_panel__header {
-  position: absolute;
-  right: 0px;
-  background-color: transparent !important;
+    position: absolute;
+    right: 0px;
+    background-color: transparent !important;
 }
 
 .sidebar_expansion_panel:nth-child(2) .expansion_panel__header .expansion_panel__toggle {
-  display: none;
+    display: none;
 }
 
 
 .sidebar_expansion_panel:nth-child(2) .expansion_panel__header .expansion_panel__actions button {
-  margin-top: 145px;
-  width: auto;
-  right: 15px;
-  padding: 8px;
-  position: absolute;
+    margin-top: 145px;
+    width: auto;
+    right: 15px;
+    padding: 8px;
+    position: absolute;
 }
 
 .view_header__content .view_header__actions,
@@ -44,8 +44,8 @@
 .sidebar_expansion_panel .expansion_panel__header,
 .collapser,
 .section_head__title small {
-  opacity: 0;
-  transition-duration: .2s;
+    opacity: 0;
+    transition-duration: .2s;
 }
 
 .view_header__content:hover .view_header__actions,
@@ -54,27 +54,39 @@
 .sidebar_expansion_panel .expansion_panel__header:hover,
 .collapser:hover,
 .section_head__title:hover small {
-  opacity: 1 !important;
+    opacity: 1 !important;
 }
 
+h1 {
+    overflow: visible !important;
+}
+
+#left_menu {
+    background-color: #1F1F1F !important;
+}
+
+#content, .view_header, .task_list_item__body, .task_list_item__actions, .section_head__title, .section_head__actions, .section_head_menu, header, .upcoming_view__calendar__wrapper {
+    background: none !important;
+    background-color: #282828 !important;
+}
 
 #projects_archived_holder {
-  opacity: 0;
+    opacity: 0;
 }
 
 #projects_archived_holder:hover {
-  opacity: 1;
+    opacity: 1;
 }
 
 #top_filters li:nth-child(2) {
-  margin-top: 12px;
+    margin-top: 12px;
 }
 
 #projects_list li:nth-child(1) {
-  margin-top: -10px;
+    margin-top: -12px;
 }
 
 #projects_list li:nth-child(2) {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
