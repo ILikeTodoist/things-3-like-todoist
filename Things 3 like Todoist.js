@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Things 3 like Todoist
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Things 3 like Todoist JavaScript code.
 // @author       None of your business
 // @match        https://todoist.com/app/*
@@ -32,7 +32,7 @@
       svgWrapper.style.display = "inline-flex"
       svgWrapper.style.alignItems = "center"
       svgWrapper.style.marginLeft = "-3.5px"
-      svgWrapper.style.marginRight = "10px"
+      svgWrapper.style.marginRight = "6px"
 
       svgWrapper.innerHTML = html
       name.prepend(svgWrapper)
@@ -48,12 +48,15 @@
 
         const children = Array.from(projectList.children)
 
-        children[0] && addIcon(children[0], `<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24" stroke="#34D399">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-</svg>`)
-        children[1] && addIcon(children[1], `<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24" stroke="#FBBF24">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-</svg>`)
+        children[0] && addIcon(children[0], `
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 20 20" fill="#34D399">
+          <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
+        </svg>`)
+        children[1] && addIcon(children[1], `
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 20 20" fill="#FBBF24">
+          <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z" />
+          <path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd" />
+        </svg>`)
     }
     const inboxYellowCounter = () => {
         const inbox = document.getElementById("filter_inbox")
@@ -78,10 +81,15 @@
 
         areas = Array.from(areas)
 
-        areas.forEach(item => {
-            addIcon(item, `<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-</svg>`)
+        areas.forEach((item, index) => {
+            addIcon(item, `
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+            </svg>`)
+
+            if (index > 1) {
+                item.style.marginTop = "12px"
+            }
         })
     }
     const addingIconOfCurrentViewOnMainTitle = () => {
@@ -125,9 +133,9 @@
         // svgWrapper.style.color = "hsla(0,0%,100%,.87)"
 
         const cloned = icon.cloneNode(true)
-        cloned.setAttribute("width", "34")
-        cloned.setAttribute("height", "34")
-        cloned.style.transform = "translateY(10px)"
+        cloned.setAttribute("width", "40")
+        cloned.setAttribute("height", "40")
+        cloned.style.transform = "translateY(9px)"
 
         if (text === "Inbox") {
             cloned.style.color = "#5297ff"
@@ -136,6 +144,7 @@
         }
 
         h1.style.transform = "translateY(-12px)"
+        h1.style.fontSize = "32px"
 
         svgWrapper.append(cloned)
 
@@ -143,34 +152,86 @@
 
         mark(h1)
     }
-    const replaceTodayIconWithStar = () => {
-        const today = document.getElementById("filter_today")
-        if (!today) return;
+    const replaceDefaultIcons = () => {
+        const replaceDefaultIcon = (iconSvg, id) => {
+            const el = document.getElementById(id)
+            if (!el) return;
 
-        const icon = today.querySelector(".item_icon")
+            let icon = el.querySelector(".item_icon")
+            if (!icon) return;
+
+            const link = el.querySelector("a")
+            if (!link) return;
+
+            if (isMarked(link)) return;
+
+            icon.remove()
+            const item = addIcon(link, iconSvg, true)
+
+            item.style.marginLeft = "4px"
+
+            mark(link)
+        }
+
+        const icons = [
+            {
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 20 20" fill="#FFD400">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>`,
+                filter: "filter_today",
+            },
+            {
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 20 20" fill="#a970ff">
+                  <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                </svg>`,
+                filter: "filter_upcoming",
+            },
+        ]
+
+        icons.forEach(item => replaceDefaultIcon(item.icon, item.filter))
+
+        const el = document.getElementById("filter_inbox")
+        if (!el) return;
+
+        let icon = el.querySelector(".item_icon")
         if (!icon) return;
 
-        const link = today.querySelector("a")
-        if (!link) return;
-
-        if (isMarked(link)) return;
+        if (isMarked(el)) return;
 
         icon.remove()
-        const item = addIcon(link, `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#FFD400">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-</svg>`, true)
+        const item = addIcon(el, `<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 20 20" fill="#5297ff">
+                  <path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v7h-2l-1 2H8l-1-2H5V5z" clip-rule="evenodd" />
+                </svg>`, true)
 
+        el.style.display = "flex"
         item.style.marginLeft = "4px"
 
-        mark(link)
+        mark(el)
+    }
+    const increasingFontSizeAndAddingProperFontWeightOnMenuItems = () => {
+        const areas = document.querySelectorAll(".indent_1")
+        if (!areas) return;
+
+        const filters = document.querySelectorAll(".filter")
+        if (!filters) return;
+
+        const sideMenuItems = [...Array.from(areas), ...Array.from(filters)]
+        sideMenuItems.forEach(item => {
+            const text = item.querySelector(".name") || item.querySelector(".item_content")
+
+            text.style.fontSize = "17px"
+            text.style.fontWeight = "600"
+        })
     }
 
     const loop = () => {
-        replaceTodayIconWithStar()
+        replaceDefaultIcons()
         addHeroIconsToSomedayAndAnytime()
         inboxYellowCounter()
         replicatingAreas()
         addingIconOfCurrentViewOnMainTitle()
+        increasingFontSizeAndAddingProperFontWeightOnMenuItems()
+
 
         requestAnimationFrame(loop)
     }
